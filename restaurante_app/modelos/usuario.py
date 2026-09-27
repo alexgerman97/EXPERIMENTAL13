@@ -1,17 +1,19 @@
 class Usuario:
+
     def __init__(
         self,
-        identificacion: str,
-        nombre: str,
-        correo: str
+        usuario: str,
+        password: str,
+        nombre: str
     ) -> None:
 
-        self.identificacion = identificacion
+        self.usuario = usuario
+        self.password = password
         self.nombre = nombre
-        self.correo = correo
 
-    def __str__(self) -> str:
+    def __str__(self):
+
         return (
-            f"{self.identificacion} - "
-            f"{self.nombre}"
+            f"{self.nombre} "
+            f"({self.usuario})"
         )

@@ -18,6 +18,7 @@ class MainView:
         self.volver_login = volver_login
 
         self.frame = tk.Frame(root)
+
         self.frame.pack(
             fill="both",
             expand=True,
@@ -27,7 +28,7 @@ class MainView:
 
         tk.Label(
             self.frame,
-            text="PANEL PRINCIPAL",
+            text="PANEL PRINCIPAL DEL RESTAURANTE",
             font=("Arial", 16, "bold")
         ).pack(pady=10)
 
@@ -71,16 +72,23 @@ class MainView:
 
         productos = (
             self.restaurante_servicio
-            .obtener_productos()
+            .listar_productos()
+        )
+
+        self.texto.insert(
+            tk.END,
+            "=== PRODUCTOS REGISTRADOS ===\n\n"
         )
 
         for producto in productos:
 
             self.texto.insert(
                 tk.END,
-                f"{producto.codigo} - "
-                f"{producto.nombre} - "
-                f"Stock: {producto.stock}\n"
+                f"Código: {producto.codigo}\n"
+                f"Nombre: {producto.nombre}\n"
+                f"Categoría: {producto.categoria}\n"
+                f"Precio: ${producto.precio}\n"
+                f"Stock: {producto.stock}\n\n"
             )
 
     def mostrar_usuarios(self) -> None:
@@ -92,19 +100,31 @@ class MainView:
 
         usuarios = (
             self.restaurante_servicio
-            .obtener_usuarios()
+            .listar_usuarios()
+        )
+
+        self.texto.insert(
+            tk.END,
+            "=== USUARIOS REGISTRADOS ===\n\n"
         )
 
         for usuario in usuarios:
 
             self.texto.insert(
                 tk.END,
-                f"{usuario.identificacion} - "
-                f"{usuario.nombre}\n"
+                f"Usuario: {usuario.usuario}\n"
+                f"Nombre: {usuario.nombre}\n\n"
             )
 
     def cerrar_sesion(self) -> None:
 
-        self.frame.destroy()
+        respuesta = messagebox.askyesno(
+            "Cerrar sesión",
+            "¿Desea cerrar sesión?"
+        )
 
-        self.volver_login()
+        if respuesta:
+
+            self.frame.destroy()
+
+            self.volver_login()

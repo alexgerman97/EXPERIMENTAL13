@@ -1,7 +1,12 @@
 [
     {
-        "identificacion": "admin",
-        "nombre": "Administrador",
-        "correo": "admin@restaurante.com"
+        "usuario": "admin",
+        "password": "1234",
+        "nombre": "Administrador"
+    },
+    {
+        "usuario": "alex",
+        "password": "2026",
+        "nombre": "Alex Toaquiza"
     }
 ]

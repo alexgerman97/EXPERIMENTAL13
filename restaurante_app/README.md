@@ -1,34 +1,35 @@
-# Restaurante App - Semana 13
-
-## Información del estudiante
-
-- Nombre: Alex Toaquiza
-- Semana: Practico Experimental 13
-
----
+# Restaurante App
 
 ## Descripción
 
-Restaurante App es una aplicación desarrollada en Python utilizando Programación Orientada a Objetos y Tkinter. Esta versión corresponde a la base gráfica del proyecto y permite simular el acceso al sistema mediante una pantalla de login y visualizar la información de productos y usuarios almacenada en archivos JSON.
+Restaurante App es una aplicación desarrollada en Python utilizando Programación Orientada a Objetos (POO) y Tkinter. El proyecto fue elaborado como parte de la Semana 13 de la asignatura, tomando como referencia la estructura del proyecto docente "Biblioteca App" y adaptándola al contexto de un restaurante.
+
+La aplicación permite realizar un acceso mediante usuario y contraseña, visualizar productos registrados y consultar usuarios almacenados en archivos JSON. Además, incorpora una estructura organizada en modelos, servicios y vistas gráficas para facilitar el mantenimiento y la ampliación futura del sistema.
 
 ---
 
-## Estructura del proyecto
+## Objetivo
+
+Aplicar los conceptos de Programación Orientada a Objetos, separación de responsabilidades, manejo de archivos JSON y desarrollo de interfaces gráficas con Tkinter mediante una aplicación básica de gestión para un restaurante.
+
+---
+
+## Estructura del Proyecto
 
 ```text
-restaurante_app
-├── datos
+restaurante_app/
+├── datos/
 │   ├── productos.json
 │   └── usuarios.json
-├── modelos
+├── modelos/
 │   ├── __init__.py
 │   ├── producto.py
 │   └── usuario.py
-├── servicios
+├── servicios/
 │   ├── __init__.py
 │   ├── archivo_servicio.py
 │   └── restaurante_servicio.py
-├── ui
+├── ui/
 │   ├── __init__.py
 │   ├── login_view.py
 │   └── main_view.py
@@ -38,93 +39,22 @@ restaurante_app
 
 ---
 
-## Responsabilidad de los componentes
-
-### modelos/
-
-Contiene las entidades principales del sistema:
-
-- Producto
-- Usuario
-
-### servicios/
-
-Contiene la lógica de negocio y acceso a datos:
-
-- ArchivoServicio: lectura de archivos JSON.
-- RestauranteServicio: validación de acceso y consulta de información.
-
-### ui/
-
-Contiene las vistas gráficas desarrolladas con Tkinter:
-
-- LoginView
-- MainView
+## Responsabilidad de cada módulo
 
 ### datos/
 
-Contiene la información almacenada en formato JSON.
+Contiene los archivos JSON utilizados para almacenar la información local de la aplicación.
 
-### main.py
+- productos.json
+- usuarios.json
 
-Inicializa la aplicación, crea la ventana principal y controla el cambio entre vistas.
+### modelos/
 
----
+Representa las entidades principales del sistema.
 
-## Flujo de la aplicación
+#### Producto
 
-```text
-Inicio
-   ↓
-LoginView
-   ↓
-Validación de acceso
-   ↓
-MainView
-   ↓
-Visualización de productos y usuarios
-   ↓
-Cerrar sesión
-   ↓
-LoginView
-```
-
----
-
-## Vistas implementadas
-
-### LoginView
-
-Permite ingresar:
-
-- Usuario
-- Contraseña
-
-Muestra mensajes de error cuando:
-
-- Existen campos vacíos.
-- Las credenciales son incorrectas.
-
-### MainView
-
-Permite visualizar:
-
-- Productos registrados.
-- Usuarios registrados.
-
-Incluye una opción identificada como:
-
-- Ventas (Pendiente)
-
-Además permite cerrar sesión y regresar al login.
-
----
-
-## Archivos JSON utilizados
-
-### productos.json
-
-Contiene:
+Almacena la información de los productos del restaurante:
 
 - Código
 - Nombre
@@ -132,43 +62,173 @@ Contiene:
 - Precio
 - Stock
 
-### usuarios.json
+#### Usuario
 
-Contiene:
+Representa los usuarios que pueden acceder al sistema.
 
-- Identificación
+- Usuario
+- Contraseña
 - Nombre
-- Correo
+
+### servicios/
+
+Contiene la lógica de negocio de la aplicación.
+
+#### ArchivoServicio
+
+Responsable de leer la información almacenada en los archivos JSON.
+
+#### RestauranteServicio
+
+Responsable de:
+
+- Cargar productos
+- Cargar usuarios
+- Validar credenciales
+- Listar productos
+- Listar usuarios
+
+### ui/
+
+Contiene las interfaces gráficas desarrolladas con Tkinter.
+
+#### LoginView
+
+Permite:
+
+- Ingresar usuario
+- Ingresar contraseña
+- Validar acceso
+- Mostrar mensajes de error
+
+#### MainView
+
+Permite:
+
+- Mostrar productos registrados
+- Mostrar usuarios registrados
+- Mostrar opción de ventas (pendiente)
+- Cerrar sesión
+
+### main.py
+
+Punto de entrada de la aplicación.
+
+Responsabilidades:
+
+- Crear la ventana principal
+- Inicializar servicios
+- Mostrar LoginView
+- Controlar el cambio entre vistas
+- Mantener un único ciclo de ejecución
 
 ---
 
-## Forma de ejecución
+## Flujo de la Aplicación
 
-Ubicarse en la carpeta del proyecto y ejecutar:
-
-```bash
-python restaurante_app/main.py
+```text
+Inicio de la aplicación
+        ↓
+main.py
+        ↓
+LoginView
+        ↓
+Ingreso de usuario y contraseña
+        ↓
+Validación mediante RestauranteServicio
+        ↓
+MainView
+        ↓
+Productos registrados
+Usuarios registrados
+Ventas (Pendiente)
+        ↓
+Cerrar sesión
+        ↓
+LoginView
 ```
 
 ---
 
-## Pruebas realizadas
+## Funcionalidades Implementadas
 
-Se verificó:
+### Acceso al sistema
 
-1. Inicio correcto de la aplicación.
-2. Visualización del login.
-3. Validación de campos vacíos.
-4. Validación de credenciales incorrectas.
-5. Acceso mediante usuario válido.
-6. Visualización de productos.
-7. Visualización de usuarios.
-8. Regreso al login mediante cierre de sesión.
+- Validación de usuario y contraseña.
+- Mensaje de error cuando existen campos vacíos.
+- Mensaje de error cuando las credenciales son incorrectas.
+- Mensaje de bienvenida cuando el acceso es correcto.
 
-Todas las pruebas fueron satisfactorias.
+### Gestión de Productos
+
+- Lectura desde productos.json.
+- Visualización de productos registrados.
+
+### Gestión de Usuarios
+
+- Lectura desde usuarios.json.
+- Visualización de usuarios registrados.
+
+### Cierre de Sesión
+
+- Regreso a la pantalla de inicio de sesión.
+- Uso de una única ventana principal de Tkinter.
+
+### Funcionalidades Futuras
+
+- Gestión de ventas.
+- Registro de pedidos.
+- Administración de clientes.
+- Reportes del restaurante.
 
 ---
 
-## Conclusión
+## Tecnologías Utilizadas
 
-Se implementó la base gráfica de Restaurante App utilizando Tkinter y manteniendo la separación de responsabilidades mediante modelos, servicios y vistas. Esta estructura permitirá incorporar nuevas funcionalidades en las siguientes semanas sin modificar la arquitectura principal del sistema.
+- Python 3
+- Tkinter
+- Programación Orientada a Objetos (POO)
+- JSON
+- Visual Studio Code
+- GitHub
+
+---
+
+## Requisitos
+
+- Python 3 instalado.
+- Tkinter habilitado.
+- Visual Studio Code (opcional).
+
+---
+
+## Ejecución del Proyecto
+
+Ubicarse en la carpeta principal del proyecto y ejecutar:
+
+```bash
+python main.py
+```
+
+---
+
+## Evidencias de Funcionamiento
+
+La aplicación permite:
+
+1. Mostrar la pantalla de inicio de sesión.
+2. Validar credenciales de acceso.
+3. Mostrar el panel principal.
+4. Consultar productos registrados.
+5. Consultar usuarios registrados.
+6. Regresar al inicio de sesión mediante la opción Cerrar Sesión.
+
+---
+
+## Autor
+
+Alex Toaquiza
+
+Universidad Estatal Amazónica
+
+Programación Orientada a Objetos – Semana 13

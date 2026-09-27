@@ -12,9 +12,7 @@ class LoginView:
     ) -> None:
 
         self.root = root
-        self.restaurante_servicio = (
-            restaurante_servicio
-        )
+        self.restaurante_servicio = restaurante_servicio
         self.mostrar_main = mostrar_main
 
         self.frame = tk.Frame(root)
@@ -55,18 +53,14 @@ class LoginView:
 
     def login(self) -> None:
 
-        usuario = (
-            self.usuario_entry.get()
-        )
+        usuario = self.usuario_entry.get().strip()
 
-        contrasena = (
-            self.password_entry.get()
-        )
+        contrasena = self.password_entry.get().strip()
 
         if (
-            not usuario
+            usuario == ""
             or
-            not contrasena
+            contrasena == ""
         ):
 
             messagebox.showerror(
@@ -76,13 +70,15 @@ class LoginView:
 
             return
 
-        if (
-            self.restaurante_servicio
-            .validar_login(
-                usuario,
-                contrasena
-            )
+        if self.restaurante_servicio.validar_login(
+            usuario,
+            contrasena
         ):
+
+            messagebox.showinfo(
+                "Acceso correcto",
+                f"Bienvenido {usuario}"
+            )
 
             self.frame.destroy()
 
@@ -92,5 +88,5 @@ class LoginView:
 
             messagebox.showerror(
                 "Error",
-                "Credenciales incorrectas"
+                "Usuario o contraseña incorrectos"
             )

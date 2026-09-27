@@ -1,88 +1,57 @@
 from modelos.producto import Producto
 from modelos.usuario import Usuario
-from servicios.archivo_servicio import ArchivoServicio
 
 
 class RestauranteServicio:
 
-    def __init__(
-        self,
-        archivo_servicio: ArchivoServicio
-    ) -> None:
+    def __init__(self, productos_data, usuarios_data):
 
-        self.archivo_servicio = archivo_servicio
+        self.productos = []
+        self.usuarios = []
 
-        self.productos = self._cargar_productos()
-        self.usuarios = self._cargar_usuarios()
+        self.cargar_productos(productos_data)
+        self.cargar_usuarios(usuarios_data)
 
-    def _cargar_productos(
-        self
-    ) -> list[Producto]:
-
-        datos = (
-            self.archivo_servicio
-            .cargar_productos()
-        )
-
-        productos = []
+    def cargar_productos(self, datos):
 
         for producto in datos:
 
-            productos.append(
-                Producto(
-                    producto["codigo"],
-                    producto["nombre"],
-                    producto["categoria"],
-                    producto["precio"],
-                    producto["stock"]
-                )
+          self.productos.append(
+            Producto(
+                producto["codigo"],
+                producto["nombre"],
+                producto["categoria"],
+                producto["precio"],
+                producto["stock"]
             )
-
-        return productos
-
-    def _cargar_usuarios(
-        self
-    ) -> list[Usuario]:
-
-        datos = (
-            self.archivo_servicio
-            .cargar_usuarios()
         )
 
-        usuarios = []
+    def cargar_usuarios(self, datos):
 
         for usuario in datos:
 
-            usuarios.append(
+            self.usuarios.append(
                 Usuario(
-                    usuario["identificacion"],
-                    usuario["nombre"],
-                    usuario["correo"]
+                    usuario["usuario"],
+                    usuario["password"],
+                    usuario["nombre"]
                 )
             )
 
-        return usuarios
+    def validar_login(self, usuario, contrasena):
 
-    def validar_login(
-        self,
-        usuario: str,
-        contrasena: str
-    ) -> bool:
+        for u in self.usuarios:
 
-        return (
-            usuario == "admin"
-            and
-            contrasena == "1234"
-        )
+            if (
+                u.usuario == usuario and
+                u.password == contrasena
+            ):
+                return True
 
-    def obtener_productos(
-        self
-    ) -> list[Producto]:
+        return False
 
+    def listar_productos(self):
         return self.productos
 
-    def obtener_usuarios(
-        self
-    ) -> list[Usuario]:
-
+    def listar_usuarios(self):
         return self.usuarios

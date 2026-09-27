@@ -2,6 +2,7 @@ import tkinter as tk
 
 from servicios.archivo_servicio import ArchivoServicio
 from servicios.restaurante_servicio import RestauranteServicio
+
 from ui.login_view import LoginView
 from ui.main_view import MainView
 
@@ -15,8 +16,19 @@ def main() -> None:
 
     archivo_servicio = ArchivoServicio()
 
-    restaurante_servicio = RestauranteServicio(
+    productos = (
         archivo_servicio
+        .cargar_productos()
+    )
+
+    usuarios = (
+        archivo_servicio
+        .cargar_usuarios()
+    )
+
+    restaurante_servicio = RestauranteServicio(
+        productos,
+        usuarios
     )
 
     def mostrar_login() -> None:
